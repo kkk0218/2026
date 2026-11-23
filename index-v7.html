@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 東京・富士山 暖秋之旅</title>
+  <!-- Google Fonts: Huninn (粉圓體) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            washi: '#FFFCF6',
+            cream: '#FFF7E6',
+            coral: '#F2A497',
+            yamabuki: '#F6D27A',
+            mizuiro: '#A8D3E6',
+            wakatake: '#B9DAA5',
+            ink: '#3E3A39',
+          },
+          fontFamily: {
+            huninn: ['Huninn', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* =====================================================================
+       JAPANESE PICTURE BOOK (日系繪本風) DESIGN SYSTEM
+       - Pure Light Mode (#FFFCF6 Washi White)
+       - 3px solid #3E3A39 Ink-Gray Borders
+       - Large Rounded Corners & Crisp Hard Drop Shadows
+       - STRICTLY ZERO CSS GRADIENTS
+       ===================================================================== */
+    :root {
+      --bg-washi: #FFFCF6;
+      --bg-cream: #FFF7E6;
+      --color-coral: #F2A497;
+      --color-yamabuki: #F6D27A;
+      --color-mizuiro: #A8D3E6;
+      --color-wakatake: #B9DAA5;
+      --color-ink: #3E3A39;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Use overflow-x: clip on body ONLY so position: sticky works 100% reliably */
+    body {
+      overflow-x: clip;
+      background-color: var(--bg-washi);
+      color: var(--color-ink);
+      font-family: 'Huninn', -apple-system, BlinkMacSystemFont, 'Noto Sans TC', sans-serif;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Storybook Card Surfaces (Flat Fills Only, No Gradients) */
+    .ehon-card {
+      background-color: #FFFFFF;
+      border: 3px solid var(--color-ink);
+      border-radius: 24px;
+      box-shadow: 4px 4px 0 var(--color-ink);
+    }
+
+    .ehon-card-cream {
+      background-color: var(--bg-cream);
+      border: 3px solid var(--color-ink);
+      border-radius: 22px;
+      box-shadow: 4px 4px 0 var(--color-ink);
+    }
+
+    .ehon-card-washi {
+      background-color: var(--bg-washi);
+      border: 3px solid var(--color-ink);
+      border-radius: 22px;
+      box-shadow: 3px 3px 0 var(--color-ink);
+    }
+
+    .ehon-card-dashed {
+      background-color: var(--bg-cream);
+      border: 3px dashed var(--color-ink);
+      border-radius: 22px;
+      box-shadow: 3px 3px 0 var(--color-ink);
+    }
+
+    /* Storybook Pill Buttons */
+    .ehon-pill {
+      border: 3px solid var(--color-ink);
+      border-radius: 999px;
+      box-shadow: 3px 3px 0 var(--color-ink);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.14s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .ehon-pill:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--color-ink);
+    }
+
+    .ehon-pill:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--color-ink);
+    }
+
+    /* Storybook Tag / Badge */
+    .ehon-tag {
+      border: 2.5px solid var(--color-ink);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Storybook Form Inputs */
+    .ehon-input {
+      background-color: #FFFFFF;
+      border: 3px solid var(--color-ink);
+      border-radius: 18px;
+      color: var(--color-ink);
+      font-family: 'Huninn', sans-serif;
+      outline: none;
+      transition: box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+
+    .ehon-input:focus {
+      background-color: var(--bg-cream);
+      box-shadow: 3px 3px 0 var(--color-ink);
+    }
+
+    /* Hide scrollbar on horizontal pill strips while retaining swipe */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Sticky Top Navigation Bar */
+    .sticky-top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg-washi);
+      border-bottom: 3px solid var(--color-ink);
+    }
+
+    /* Hero SVG Gentle Animations */
+    @keyframes floatCloud {
+      0%, 100% { transform: translateX(0px); }
+      50% { transform: translateX(7px); }
+    }
+    @keyframes bobPlane {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(-2deg); }
+    }
+    @keyframes swayLeaf {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(6deg); }
+    }
+
+    .anim-cloud {
+      animation: floatCloud 5.5s ease-in-out infinite;
+    }
+    .anim-cloud-slow {
+      animation: floatCloud 7s ease-in-out infinite reverse;
+    }
+    .anim-plane {
+      animation: bobPlane 3.4s ease-in-out infinite;
+      transform-origin: center;
+    }
+    .anim-leaf {
+      animation: swayLeaf 3.8s ease-in-out infinite;
+      transform-origin: top center;
+    }
+    .anim-leaf-alt {
+      animation: swayLeaf 4.4s ease-in-out infinite reverse;
+      transform-origin: top center;
+    }
+
+    /* Cute Pop Bounce Animation when switching Days or Tabs */
+    @keyframes popBounce {
+      0% { transform: scale(0.96) translateY(6px); opacity: 0.75; }
+      55% { transform: scale(1.015) translateY(-2px); opacity: 1; }
+      100% { transform: scale(1) translateY(0px); opacity: 1; }
+    }
+
+    .anim-pop-bounce {
+      animation: popBounce 0.34s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    /* Respect Reduced Motion Accessibility Setting */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .anim-cloud,
+      .anim-cloud-slow,
+      .anim-plane,
+      .anim-leaf,
+      .anim-leaf-alt,
+      .anim-pop-bounce {
+        animation: none !important;
+      }
+      .ehon-pill,
+      .ehon-input {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-washi text-ink min-h-screen pb-14">
+
+  <!-- ==================== HERO HEADER & STORYBOOK ILLUSTRATION ==================== -->
+  <header class="max-w-4xl mx-auto px-4 pt-4 pb-4">
+    <div class="ehon-card bg-cream p-4 sm:p-6">
+      <!-- Top Storybook Banner SVG (ONLY in Hero; Zero Gradients; 3px Ink Strokes) -->
+      <div class="w-full bg-mizuiro border-[3px] border-ink rounded-[20px] overflow-hidden mb-4">
+        <svg viewBox="0 0 760 220" class="w-full h-auto block" role="img" aria-label="東京與富士山暖秋繪本插畫">
+          <!-- Sky Flat Background -->
+          <rect x="0" y="0" width="760" height="220" fill="#A8D3E6" />
+
+          <!-- Warm Sun -->
+          <circle cx="92" cy="54" r="24" fill="#F6D27A" stroke="#3E3A39" stroke-width="3" />
+
+          <!-- Floating Clouds -->
+          <g class="anim-cloud">
+            <path d="M165 62 C165 50 182 46 190 54 C198 42 222 44 226 58 C238 58 244 74 232 78 L164 78 C154 76 154 62 165 62 Z"
+                  fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+          </g>
+          <g class="anim-cloud-slow">
+            <path d="M540 50 C540 39 556 36 564 43 C572 32 594 34 598 46 C609 47 614 61 603 65 L539 65 C530 63 530 50 540 50 Z"
+                  fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+          </g>
+
+          <!-- Cute Yellow Airplane -->
+          <g class="anim-plane">
+            <path d="M415 44 L456 50 L470 40 L476 43 L468 53 L482 57 C487 58 487 64 481 65 L452 64 L436 74 L429 72 L439 62 L416 58 L409 63 L404 61 L410 53 L405 46 L410 44 Z"
+                  fill="#F6D27A" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <circle cx="458" cy="57" r="2.5" fill="#3E3A39" />
+            <circle cx="448" cy="56" r="2.5" fill="#3E3A39" />
+          </g>
+
+          <!-- Snow-Capped Mt. Fuji -->
+          <path d="M235 186 L342 62 C348 56 362 56 368 62 L475 186 Z"
+                fill="#A8D3E6" stroke="#3E3A39" stroke-width="3.5" stroke-linejoin="round" />
+          <!-- Fuji Deeper Blue Shading (Flat Polygon, No Gradient) -->
+          <path d="M355 58 L368 62 L475 186 L395 186 L355 110 Z"
+                fill="#8CC0D8" />
+          <path d="M235 186 L342 62 C348 56 362 56 368 62 L475 186 Z"
+                fill="none" stroke="#3E3A39" stroke-width="3.5" stroke-linejoin="round" />
+          <!-- Fuji Snow Cap -->
+          <path d="M312 97 L342 62 C348 56 362 56 368 62 L398 97 L384 107 L371 95 L356 109 L341 95 L327 107 Z"
+                fill="#FFFCF6" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+
+          <!-- Five-Story Pagoda (Left Side) -->
+          <g>
+            <!-- Spire -->
+            <line x1="142" y1="74" x2="142" y2="96" stroke="#3E3A39" stroke-width="3" stroke-linecap="round" />
+            <circle cx="142" cy="74" r="3.5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" />
+            <!-- Tier 1 Roof -->
+            <path d="M114 106 Q142 94 170 106 L163 111 L121 111 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <rect x="125" y="111" width="34" height="12" fill="#FFF7E6" stroke="#3E3A39" stroke-width="3" />
+            <!-- Tier 2 Roof -->
+            <path d="M108 124 Q142 112 176 124 L168 129 L116 129 Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <rect x="121" y="129" width="42" height="13" fill="#FFF7E6" stroke="#3E3A39" stroke-width="3" />
+            <!-- Tier 3 Roof -->
+            <path d="M102 143 Q142 130 182 143 L173 149 L111 149 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <rect x="117" y="149" width="50" height="15" fill="#FFF7E6" stroke="#3E3A39" stroke-width="3" />
+            <!-- Tier 4 Roof -->
+            <path d="M96 165 Q142 151 188 165 L178 171 L106 171 Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+            <rect x="114" y="171" width="56" height="17" fill="#FFF7E6" stroke="#3E3A39" stroke-width="3" />
+          </g>
+
+          <!-- Red Torii Gate (Right Side) -->
+          <g>
+            <!-- Pillars -->
+            <rect x="562" y="114" width="11" height="74" rx="3" fill="#F2A497" stroke="#3E3A39" stroke-width="3" />
+            <rect x="625" y="114" width="11" height="74" rx="3" fill="#F2A497" stroke="#3E3A39" stroke-width="3" />
+            <!-- Lower Tie Beam (Nuki) -->
+            <rect x="550" y="130" width="98" height="9" rx="3" fill="#F2A497" stroke="#3E3A39" stroke-width="3" />
+            <!-- Center Tablet -->
+            <rect x="593" y="116" width="12" height="16" rx="2" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" />
+            <!-- Top Curved Beam (Kasagi) -->
+            <path d="M540 106 Q599 113 658 106 L654 116 Q599 120 544 116 Z"
+                  fill="#F2A497" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" />
+          </g>
+
+          <!-- Swaying Autumn Leaves (Ginkgo & Maple) -->
+          <g class="anim-leaf" transform="translate(52, 118)">
+            <path d="M0 0 C-14 -10 -16 -26 0 -28 C16 -26 14 -10 0 0 Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" />
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round" />
+          </g>
+          <g class="anim-leaf-alt" transform="translate(222, 110)">
+            <polygon points="0,-16 5,-6 16,-8 8,0 13,10 0,6 -13,10 -8,0 -16,-8 -5,-6"
+                     fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round" />
+          </g>
+          <g class="anim-leaf" transform="translate(504, 108)">
+            <path d="M0 0 C-13 -9 -15 -24 0 -26 C15 -24 13 -9 0 0 Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" />
+          </g>
+          <g class="anim-leaf-alt" transform="translate(702, 116)">
+            <polygon points="0,-15 5,-5 15,-7 7,0 12,9 0,5 -12,9 -7,0 -15,-7 -5,-5"
+                     fill="#F2A497" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round" />
+          </g>
+
+          <!-- Rolling Wakatake Green Hills Foreground -->
+          <path d="M0 184 Q140 162 290 184 T580 182 T760 176 L760 220 L0 220 Z"
+                fill="#B9DAA5" stroke="#3E3A39" stroke-width="3.5" stroke-linejoin="round" />
+          <!-- Cute Round Bush Accent -->
+          <circle cx="48" cy="186" r="15" fill="#F6D27A" stroke="#3E3A39" stroke-width="3" />
+          <circle cx="712" cy="186" r="16" fill="#F2A497" stroke="#3E3A39" stroke-width="3" />
+        </svg>
+      </div>
+
+      <!-- Title, Subtitle & Live Countdown -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="space-y-1.5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="ehon-tag bg-yamabuki px-3 py-0.5 text-xs font-bold">
+              🍁 2026.11.25 – 12.01（7天6夜）
+            </span>
+            <span class="ehon-tag bg-wakatake px-3 py-0.5 text-xs font-bold">
+              🚃 全程大眾運輸・Suica 隨刷隨搭
+            </span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-wide leading-tight">
+            2026 東京・富士山 暖秋之旅
+          </h1>
+          <p class="text-sm sm:text-base font-bold text-ink/85">
+            賞楓・銀杏・湘南海景富士山・聖誕點燈之旅
+          </p>
+        </div>
+
+        <!-- Live Countdown Timer to 2026-11-25 07:55 Taiwan Time -->
+        <div class="ehon-card-washi p-3 sm:p-3.5 shrink-0">
+          <div class="text-xs font-bold text-center mb-1.5">✈️ 距離出發（11/25 07:55）還有</div>
+          <div class="flex items-center justify-center gap-1.5 sm:gap-2 text-center font-bold">
+            <div class="bg-coral border-[2.5px] border-ink rounded-2xl px-2.5 py-1 min-w-[52px]">
+              <div id="cdDays" class="text-lg sm:text-xl leading-none">00</div>
+              <div class="text-[11px] mt-0.5">天</div>
+            </div>
+            <div class="bg-yamabuki border-[2.5px] border-ink rounded-2xl px-2.5 py-1 min-w-[52px]">
+              <div id="cdHours" class="text-lg sm:text-xl leading-none">00</div>
+              <div class="text-[11px] mt-0.5">時</div>
+            </div>
+            <div class="bg-mizuiro border-[2.5px] border-ink rounded-2xl px-2.5 py-1 min-w-[52px]">
+              <div id="cdMins" class="text-lg sm:text-xl leading-none">00</div>
+              <div class="text-[11px] mt-0.5">分</div>
+            </div>
+            <div class="bg-wakatake border-[2.5px] border-ink rounded-2xl px-2.5 py-1 min-w-[52px]">
+              <div id="cdSecs" class="text-lg sm:text-xl leading-none">00</div>
+              <div class="text-[11px] mt-0.5">秒</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dual-Mode Live Weather Box (Instant Pre-Populated + Background Open-Meteo Sync) -->
+      <div class="ehon-card-washi p-3.5 sm:p-4 mt-4 space-y-2.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="ehon-tag bg-mizuiro px-3 py-0.5 text-xs sm:text-sm font-bold">
+              🌤️ 旅遊天氣速報
+            </span>
+            <span id="weatherStatusBadge" class="ehon-tag bg-yamabuki px-2.5 py-0.5 text-[11px] sm:text-xs font-bold">
+              📅 已載入歷年同期預估氣象
+            </span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="https://weathernews.jp/koyo/area/tokyo/" target="_blank" rel="noopener noreferrer"
+               class="ehon-pill bg-coral px-2.5 py-1 text-xs font-bold">
+              🍁 Weathernews 紅葉情報
+            </a>
+            <a href="https://tenki.jp/forecast/3/16/4410/13102/" target="_blank" rel="noopener noreferrer"
+               class="ehon-pill bg-cream px-2.5 py-1 text-xs font-bold">
+              🔗 tenki.jp 預報
+            </a>
+            <button type="button" id="refreshWeatherBtn" class="ehon-pill bg-wakatake px-3 py-1 text-xs font-bold">
+              🔄 更新天氣
+            </button>
+          </div>
+        </div>
+
+        <div id="heroWeatherGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <!-- Pre-populated immediately by JS on load; never stuck on Loading -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== PINNED STICKY 5-TAB NAVIGATION ==================== -->
+  <nav class="sticky-top-nav py-2.5 px-3 sm:px-4" aria-label="主要功能分頁">
+    <div class="max-w-4xl mx-auto">
+      <div id="mainTabBar" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+        <button type="button" data-tab="itinerary" class="main-tab-pill ehon-pill bg-yamabuki shrink-0 px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-bold">
+          📅 每日行程
+        </button>
+        <button type="button" data-tab="flights" class="main-tab-pill ehon-pill bg-white shrink-0 px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-bold">
+          ✈️ 航班住宿
+        </button>
+        <button type="button" data-tab="checklists" class="main-tab-pill ehon-pill bg-white shrink-0 px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-bold">
+          ✅ 行前行李
+        </button>
+        <button type="button" data-tab="food" class="main-tab-pill ehon-pill bg-white shrink-0 px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-bold">
+          🍱 美食清單
+        </button>
+        <button type="button" data-tab="tools" class="main-tab-pill ehon-pill bg-white shrink-0 px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-bold">
+          🛍️ 記帳工具
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== MAIN CONTENT SECTIONS ==================== -->
+  <main class="max-w-4xl mx-auto px-4 pt-5 space-y-6">
+
+    <!-- ==================== TAB 1: 📅 每日行程 ==================== -->
+    <section id="tab-itinerary" class="tab-panel space-y-4">
+      <!-- Horizontal Day Selector Pills -->
+      <div class="ehon-card-cream p-3">
+        <div id="daySelectorBar" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+
+      <!-- Active Day Content Container -->
+      <div id="dayContentContainer">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: ✈️ 航班住宿 ==================== -->
+    <section id="tab-flights" class="tab-panel hidden space-y-5">
+      <!-- Boarding-Pass Style Flight Cards -->
+      <div class="ehon-card p-4 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg sm:text-xl font-bold">✈️ 長榮航空直飛航班</h2>
+          <span class="ehon-tag bg-mizuiro px-3 py-0.5 text-xs font-bold">去成田・回松山</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Outbound Flight -->
+          <div class="ehon-card-cream overflow-hidden">
+            <div class="bg-coral border-b-[3px] border-ink px-4 py-2 flex items-center justify-between font-bold text-xs sm:text-sm">
+              <span>🛫 去程・2026/11/25 (週三)</span>
+              <span class="bg-white border-2 border-ink rounded-full px-2.5 py-0.5">EVA BR184</span>
+            </div>
+            <div class="p-4 space-y-3">
+              <div class="flex items-center justify-between text-center">
+                <div>
+                  <div class="text-2xl font-bold">TPE</div>
+                  <div class="text-xs font-bold">桃園機場 T2</div>
+                  <div class="ehon-tag bg-yamabuki px-2.5 py-0.5 text-xs font-bold mt-1">07:55 起飛</div>
+                </div>
+                <div class="flex-1 px-2">
+                  <div class="text-xs font-bold mb-1">約 3 小時 10 分</div>
+                  <div class="border-t-[3px] border-dashed border-ink relative">
+                    <span class="bg-cream px-1.5 text-sm relative -top-3">✈️</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-2xl font-bold">NRT</div>
+                  <div class="text-xs font-bold">成田機場 T1</div>
+                  <div class="ehon-tag bg-wakatake px-2.5 py-0.5 text-xs font-bold mt-1">12:05 抵達</div>
+                </div>
+              </div>
+              <div class="bg-white border-2 border-ink rounded-2xl p-2.5 text-xs leading-relaxed">
+                💡 抵達成田 T1 後，刷手機 Suica 搭「京成電鐵 Access 特急（<strong>往羽田機場／西馬込方向</strong>，直通都營淺草線）」免轉車直達東銀座站（約 65 分鐘，¥1,376）。
+              </div>
+            </div>
+          </div>
+
+          <!-- Inbound Flight -->
+          <div class="ehon-card-cream overflow-hidden">
+            <div class="bg-mizuiro border-b-[3px] border-ink px-4 py-2 flex items-center justify-between font-bold text-xs sm:text-sm">
+              <span>🛬 回程・2026/12/01 (週二)</span>
+              <span class="bg-white border-2 border-ink rounded-full px-2.5 py-0.5">EVA BR191</span>
+            </div>
+            <div class="p-4 space-y-3">
+              <div class="flex items-center justify-between text-center">
+                <div>
+                  <div class="text-2xl font-bold">HND</div>
+                  <div class="text-xs font-bold">羽田機場 T3</div>
+                  <div class="ehon-tag bg-yamabuki px-2.5 py-0.5 text-xs font-bold mt-1">12:15 起飛</div>
+                </div>
+                <div class="flex-1 px-2">
+                  <div class="text-xs font-bold mb-1">約 3 小時 50 分</div>
+                  <div class="border-t-[3px] border-dashed border-ink relative">
+                    <span class="bg-cream px-1.5 text-sm relative -top-3">✈️</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-2xl font-bold">TSA</div>
+                  <div class="text-xs font-bold">台北松山機場</div>
+                  <div class="ehon-tag bg-wakatake px-2.5 py-0.5 text-xs font-bold mt-1">15:05 抵達</div>
+                </div>
+              </div>
+              <div class="bg-white border-2 border-ink rounded-2xl p-2.5 text-xs leading-relaxed">
+                💡 大井町距離羽田機場非常近！08:30 於大井町站東口搭直達利木津巴士（<strong>往羽田機場第 3 航廈方向</strong>，約 25 分鐘直達出境大廳），免搬行李轉車最輕鬆。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Accommodation Cards -->
+      <div class="ehon-card p-4 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg sm:text-xl font-bold">🏨 6 晚精選住宿總覽</h2>
+          <span class="ehon-tag bg-wakatake px-3 py-0.5 text-xs font-bold">全車站步行 2–5 分鐘</span>
+        </div>
+
+        <div class="space-y-3.5">
+          <!-- Hotel 1 -->
+          <div class="ehon-card-washi p-4 space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="ehon-tag bg-coral px-3 py-0.5 text-xs font-bold">11/25 – 11/28（連住 3 晚）</span>
+                <h3 class="text-base sm:text-lg font-bold">Via Inn 東銀座（ヴィアイン東銀座）</h3>
+              </div>
+              <a href="https://www.google.com/maps/search/?api=1&query=Via+Inn+Higashi+Ginza" target="_blank" rel="noopener noreferrer"
+                 class="ehon-pill bg-yamabuki px-3 py-1 text-xs font-bold">
+                📍 地圖導航
+              </a>
+            </div>
+            <p class="text-xs sm:text-sm leading-relaxed">
+              🚇 <strong>交通優勢</strong>：都營淺草線／日比谷線「東銀座站」5 號出口步行 3 分鐘（推大行李建議走 A7／A8 出口有電梯）；距離銀座 UNIQLO TOKYO 步行 8 分鐘，樓下即有便利商店與多間熟食餐廳。
+            </p>
+          </div>
+
+          <!-- Hotel 2 -->
+          <div class="ehon-card-washi p-4 space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="ehon-tag bg-mizuiro px-3 py-0.5 text-xs font-bold">11/28 – 11/29（1 晚）</span>
+                <h3 class="text-base sm:text-lg font-bold">富士鳥居門酒店（Fuji Torii Gate Hotel）</h3>
+              </div>
+              <a href="https://www.google.com/maps/search/?api=1&query=Fuji+Torii+Gate+Hotel+Fujiyoshida" target="_blank" rel="noopener noreferrer"
+                 class="ehon-pill bg-yamabuki px-3 py-1 text-xs font-bold">
+                📍 地圖導航
+              </a>
+            </div>
+            <p class="text-xs sm:text-sm leading-relaxed">
+              🚃 <strong>交通優勢</strong>：富士急行線「富士山站」步行 3–5 分鐘（正對金鳥居地標），隔天退房寄放行李後搭電車 1 站即達河口湖站騎 E-bike 環湖。
+            </p>
+          </div>
+
+          <!-- Hotel 3 -->
+          <div class="ehon-card-washi p-4 space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="ehon-tag bg-wakatake px-3 py-0.5 text-xs font-bold">11/29 – 12/01（連住 2 晚）</span>
+                <h3 class="text-base sm:text-lg font-bold">Via Inn 東京大井町（ヴィアイン東京大井町）</h3>
+              </div>
+              <a href="https://www.google.com/maps/search/?api=1&query=Via+Inn+Tokyo+Oimachi" target="_blank" rel="noopener noreferrer"
+                 class="ehon-pill bg-yamabuki px-3 py-1 text-xs font-bold">
+                📍 地圖導航
+              </a>
+            </div>
+            <p class="text-xs sm:text-sm leading-relaxed">
+              🚌 <strong>交通優勢</strong>：連住兩晚免搬行李！JR 京濱東北線／臨海線「大井町站」中央口步行 2 分鐘；往南搭京濱東北線「往大船方向」一班車直達大船轉單軌去湘南海岸，往北搭臨海線 7 分鐘直達惠比壽，東口更有利木津巴士直達羽田機場。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmed Tickets & Reservations Card -->
+      <div class="ehon-card p-4 sm:p-6 space-y-3.5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg sm:text-xl font-bold">🎫 已確認門票與預約總覽</h2>
+          <span class="ehon-tag bg-yamabuki px-3 py-0.5 text-xs font-bold">請存好 QR Code 截圖</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="ehon-card-cream p-3.5 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="ehon-tag bg-coral px-2.5 py-0.5 text-xs font-bold">11/26 16:00 夕陽夜景</span>
+              <span class="text-xs font-bold">🗼 室內觀景首選</span>
+            </div>
+            <div class="font-bold text-sm sm:text-base">六本木之丘 52F 展望台（Tokyo City View）</div>
+            <p class="text-xs leading-relaxed">已調整取代澀谷 Sky！全室內 11 公尺挑高玻璃帷幕免吹冷風、免寄放包包，16:00 入場正好近距離平視東京鐵塔夕陽與夜景。</p>
+          </div>
+
+          <div class="ehon-card-cream p-3.5 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="ehon-tag bg-mizuiro px-2.5 py-0.5 text-xs font-bold">11/28 早上集合</span>
+              <span class="text-xs font-bold">✅ 已預訂</span>
+            </div>
+            <div class="font-bold text-sm sm:text-base">富士山精華一日遊</div>
+            <p class="text-xs leading-relaxed">東京車站丸之內北口出發（含山中湖、忍野八海、LAWSON、大石公園、日川時計店、淺間神社），16:20 於新倉山淺間公園解散，步行至下吉田站搭純電車回富士山站。</p>
+          </div>
+
+          <div class="ehon-card-cream p-3.5 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="ehon-tag bg-wakatake px-2.5 py-0.5 text-xs font-bold">11/29 15:06 發車</span>
+              <span class="text-xs font-bold">✅ 已預訂</span>
+            </div>
+            <div class="font-bold text-sm sm:text-base">JR 特急「富士迴游 36 號」</div>
+            <p class="text-xs leading-relaxed">15:06 富士山站發車 ➔ 16:58 直達新宿站。⚠️ 進站請走人工驗票口出示指定席車票，切勿直接刷 Suica。</p>
+          </div>
+
+          <div class="ehon-card-cream p-3.5 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="ehon-tag bg-yamabuki px-2.5 py-0.5 text-xs font-bold">11/30 12:00 景觀位</span>
+              <span class="text-xs font-bold">✅ 已預約</span>
+            </div>
+            <div class="font-bold text-sm sm:text-base">敘敘苑 惠比壽花園廣場店（38/39F）</div>
+            <p class="text-xs leading-relaxed">已預約 11/30（週一）12:00 高空景觀席！點選平日商業午餐（純和牛五花／里肌套餐，¥3,200–¥4,500），完全無牛舌、無內臟、無生食。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: ✅ 行前行李 ==================== -->
+    <section id="tab-checklists" class="tab-panel hidden space-y-5">
+      <!-- Overall Progress Card -->
+      <div class="ehon-card p-4 sm:p-5 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg sm:text-xl font-bold">🎒 準備進度總覽</h2>
+          <span id="checklistProgressText" class="ehon-tag bg-yamabuki px-3 py-0.5 text-xs sm:text-sm font-bold">0 / 0 完成</span>
+        </div>
+        <div class="w-full h-5 bg-cream border-[3px] border-ink rounded-full overflow-hidden">
+          <div id="checklistProgressBar" class="h-full bg-wakatake border-r-[3px] border-ink transition-all duration-300" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- List 1: 出發前準備清單 -->
+        <div class="ehon-card p-4 sm:p-5 space-y-3.5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base sm:text-lg font-bold">📋 出發前準備清單</h3>
+            <span id="pretripCountBadge" class="ehon-tag bg-coral px-2.5 py-0.5 text-xs font-bold">0/0</span>
+          </div>
+
+          <form id="addPretripForm" class="flex gap-2">
+            <input type="text" id="newPretripInput" placeholder="新增出發前待辦..." class="ehon-input flex-1 px-3.5 py-2 text-xs sm:text-sm" />
+            <button type="submit" class="ehon-pill bg-yamabuki px-3.5 py-2 text-xs sm:text-sm font-bold shrink-0">
+              ➕ 新增
+            </button>
+          </form>
+
+          <ul id="pretripListUl" class="space-y-2">
+            <!-- Populated via JS -->
+          </ul>
+        </div>
+
+        <!-- List 2: 秋冬東京＆富士山行李清單 -->
+        <div class="ehon-card p-4 sm:p-5 space-y-3.5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base sm:text-lg font-bold">🧳 秋冬東京＆富士山行李清單</h3>
+            <span id="packingCountBadge" class="ehon-tag bg-mizuiro px-2.5 py-0.5 text-xs font-bold">0/0</span>
+          </div>
+
+          <form id="addPackingForm" class="flex gap-2">
+            <input type="text" id="newPackingInput" placeholder="新增打包物品..." class="ehon-input flex-1 px-3.5 py-2 text-xs sm:text-sm" />
+            <button type="submit" class="ehon-pill bg-wakatake px-3.5 py-2 text-xs sm:text-sm font-bold shrink-0">
+              ➕ 新增
+            </button>
+          </form>
+
+          <ul id="packingListUl" class="space-y-2">
+            <!-- Populated via JS -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: 🍱 美食清單 ==================== -->
+    <section id="tab-food" class="tab-panel hidden space-y-4">
+      <div class="ehon-card p-4 sm:p-5 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold">🍱 每日順路全熟食美食清單</h2>
+            <p class="text-xs sm:text-sm opacity-80 mt-0.5">嚴格過濾「生魚片／生食」與「牛舌／內臟」，精選純牛肉燒肉、炸豬排、漢堡排、鰻魚飯與烏龍麵</p>
+          </div>
+          <span id="foodCountTag" class="ehon-tag bg-wakatake px-3 py-1 text-xs font-bold">顯示全部</span>
+        </div>
+
+        <!-- Day-by-Day Filter Pills -->
+        <div id="foodFilterBar" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+
+      <!-- Restaurant Cards Grid -->
+      <div id="restaurantGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Populated via JS -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: 🛍️ 記帳工具 ==================== -->
+    <section id="tab-tools" class="tab-panel hidden space-y-5">
+
+      <!-- 1. Currency Converter + Expense Tracker -->
+      <div class="ehon-card p-4 sm:p-6 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 class="text-lg sm:text-xl font-bold">💴 匯率換算 ＆ 旅遊記帳本</h2>
+          <div class="flex items-center gap-1.5 text-xs sm:text-sm font-bold">
+            <span>匯率 1 JPY =</span>
+            <input type="number" id="fxRateInput" step="0.001" min="0.01" value="0.215"
+                   class="ehon-input w-20 px-2.5 py-1 text-center font-bold" />
+            <span>TWD</span>
+          </div>
+        </div>
+
+        <!-- Bidirectional Converter -->
+        <div class="ehon-card-cream p-4 space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="jpyConvertInput" class="block text-xs font-bold mb-1">🇯🇵 日幣金額（JPY ¥）</label>
+              <input type="number" id="jpyConvertInput" placeholder="輸入日幣，例如 3500"
+                     class="ehon-input w-full px-3.5 py-2.5 text-base font-bold" />
+            </div>
+            <div>
+              <label for="twdConvertInput" class="block text-xs font-bold mb-1">🇹🇼 台幣金額（TWD NT$）</label>
+              <input type="number" id="twdConvertInput" placeholder="自動雙向換算台幣"
+                     class="ehon-input w-full px-3.5 py-2.5 text-base font-bold" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Expense Form -->
+        <form id="addExpenseForm" class="ehon-card-washi p-4 space-y-3">
+          <div class="text-xs sm:text-sm font-bold">➕ 記上一筆花費（自動同步換算台幣）</div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <input type="text" id="expItemInput" placeholder="品項（例：敘敘苑午餐、單軌車票）"
+                   class="ehon-input px-3.5 py-2 text-xs sm:text-sm" required />
+            <select id="expCatSelect" class="ehon-input px-3.5 py-2 text-xs sm:text-sm font-bold">
+              <option value="美食">🍱 美食</option>
+              <option value="交通">🚃 交通</option>
+              <option value="伴手禮">🎁 伴手禮</option>
+              <option value="門票">🎟️ 門票</option>
+              <option value="其他">🛍️ 其他</option>
+            </select>
+            <div class="flex gap-2">
+              <input type="number" id="expJpyInput" placeholder="日幣金額 ¥" min="1"
+                     class="ehon-input flex-1 px-3.5 py-2 text-xs sm:text-sm font-bold" required />
+              <button type="submit" class="ehon-pill bg-wakatake px-4 py-2 text-xs sm:text-sm font-bold shrink-0">
+                新增
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- 5 Category Summary -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2" id="categorySummaryGrid">
+          <!-- Populated via JS -->
+        </div>
+
+        <!-- Total & Expense List -->
+        <div class="ehon-card-cream p-4 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-dashed border-ink pb-2.5">
+            <div class="font-bold text-sm sm:text-base">
+              總花費：<span id="totalJpyText" class="text-lg">¥0</span>
+              <span class="text-xs sm:text-sm ml-1">（約 <span id="totalTwdText">NT$ 0</span>）</span>
+            </div>
+            <button type="button" id="clearExpensesBtn" class="ehon-pill bg-coral px-3 py-1 text-xs font-bold">
+              🗑️ 清空全部
+            </button>
+          </div>
+          <ul id="expenseListUl" class="space-y-2">
+            <!-- Populated via JS -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. 12 Must-Buy Souvenirs Checklist -->
+      <div class="ehon-card p-4 sm:p-6 space-y-3.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold">🎁 東京＆富士山 12 大必買伴手禮清單</h2>
+            <p class="text-xs sm:text-sm opacity-80 mt-0.5">推薦集中於 Day 6 下午東京車站一番街 ＆ 大丸百貨一次買齊</p>
+          </div>
+          <span id="souvenirProgressBadge" class="ehon-tag bg-yamabuki px-3 py-1 text-xs font-bold">0 / 12 已買</span>
+        </div>
+
+        <ul id="souvenirListUl" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <!-- Populated via JS -->
+        </ul>
+      </div>
+
+      <!-- 3. Point & Speak Japanese Cards (11 Practical Cards) -->
+      <div class="ehon-card p-4 sm:p-6 space-y-3.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 class="text-lg sm:text-xl font-bold">🗣️ 日文點指溝通卡（直接給店員看）</h2>
+          <span class="ehon-tag bg-coral px-3 py-0.5 text-xs font-bold">飲食禁忌・餐廳結帳・飯店交通</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <!-- 1. 飲食禁忌 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-coral px-2.5 py-0.5 text-xs font-bold">🍽️ 不吃生食・不吃牛舌與內臟</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              すみません、私たちは<strong>生もの（刺身・寿司）</strong>と、<strong>牛タン・ホルモン（内臓）</strong>が食べられません。よく焼いたお肉や、火を通した料理をおすすめしていただけますか？
+            </p>
+            <p class="text-xs opacity-80">不好意思，我們不吃生食（生魚片／壽司），也不吃牛舌和內臟。請問可以推薦全熟肉類或熟食料理嗎？</p>
+          </div>
+
+          <!-- 2. 兩個人內用 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-yamabuki px-2.5 py-0.5 text-xs font-bold">🍜 餐廳候位・兩個人內用有位置嗎</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              すみません、<strong>2人（ふたり）</strong>です。<strong>店内で食事</strong>したいのですが、席は空いていますか？
+            </p>
+            <p class="text-xs opacity-80">不好意思，我們有 2 位。想要內用，請問現在有空位嗎？</p>
+          </div>
+
+          <!-- 3. 付款用 PayPay / 信用卡 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-mizuiro px-2.5 py-0.5 text-xs font-bold">💳 結帳付款（PayPay / 信用卡）</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              お支払いは <strong>PayPay</strong>（または <strong>クレジットカード</strong>）でお願いします。
+            </p>
+            <p class="text-xs opacity-80">我要用 PayPay（或 信用卡）結帳。（結帳時指一下對應方式即可）</p>
+          </div>
+
+          <!-- 4. 免稅 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-wakatake px-2.5 py-0.5 text-xs font-bold">🛍️ 購物退稅（辦理免稅）</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              すみません、<strong>免税（Tax-Free）</strong>の手続きをお願いできますか？パスポートはこちらです。
+            </p>
+            <p class="text-xs opacity-80">不好意思，請問可以辦理免稅（Tax-Free）手續嗎？這是我的護照。</p>
+          </div>
+
+          <!-- 5. 儲值 Suica -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-mizuiro px-2.5 py-0.5 text-xs font-bold">🐧 超商／車站櫃檯儲值 Suica</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              すみません、この <strong>Suica（交通系ICカード）にチャージ</strong>したいです。現金でお願いします。
+            </p>
+            <p class="text-xs opacity-80">不好意思，我想要幫這張 Suica 儲值，我要用現金儲值。</p>
+          </div>
+
+          <!-- 6. 辦理入住 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-coral px-2.5 py-0.5 text-xs font-bold">🏨 飯店辦理入住（Check-in）</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              こんにちは、<strong>チェックイン</strong>をお願いします。予約した時のパスポートはこちらです。
+            </p>
+            <p class="text-xs opacity-80">你好，我們要辦理入住（Check-in），這是訂房人的護照。</p>
+          </div>
+
+          <!-- 7. 辦理退房 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-yamabuki px-2.5 py-0.5 text-xs font-bold">🔑 飯店辦理退房（Check-out）</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              おはようございます、<strong>チェックアウト</strong>をお願いします。カードキーはこちらです。
+            </p>
+            <p class="text-xs opacity-80">早安，我們要辦理退房（Check-out），這是房卡。</p>
+          </div>
+
+          <!-- 8. 入住前寄放行李 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-wakatake px-2.5 py-0.5 text-xs font-bold">🧳 入住前寄放行李（Check-in 前）</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              すみません、<strong>チェックイン前</strong>ですが、<strong>荷物を預かっていただけますか？</strong>
+            </p>
+            <p class="text-xs opacity-80">不好意思，現在還沒到入住時間，請問可以先寄放行李嗎？</p>
+          </div>
+
+          <!-- 9. 退房後寄放行李 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-cream px-2.5 py-0.5 text-xs font-bold">🧳 退房後寄放行李（Check-out 後）</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              すみません、<strong>チェックアウト後</strong>ですが、<strong>荷物を預かっていただけますか？</strong>
+            </p>
+            <p class="text-xs opacity-80">不好意思，我們已經退房了，請問可以暫時寄放行李嗎？</p>
+          </div>
+
+          <!-- 10. 富士迴游人工通道 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-mizuiro px-2.5 py-0.5 text-xs font-bold">🚆 車站人工通道（富士迴游實體車票）</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              すみません、<strong>指定席の紙の切符</strong>を持っています。こちらから通れますか？
+            </p>
+            <p class="text-xs opacity-80">不好意思，我們拿的是指定席實體車票，請問可以從這個通道進站嗎？</p>
+          </div>
+
+          <!-- 11. 河口湖租借電動單車 -->
+          <div class="ehon-card-washi p-3.5 space-y-1.5">
+            <span class="ehon-tag bg-yamabuki px-2.5 py-0.5 text-xs font-bold">🚲 河口湖租借電動單車（E-bike）</span>
+            <p class="text-sm sm:text-base font-bold leading-relaxed bg-white border-2 border-ink rounded-2xl p-3">
+              すみません、<strong>電動アシスト自転車（E-bike）</strong>を <strong>2台</strong> 借りたいです。
+            </p>
+            <p class="text-xs opacity-80">不好意思，我們想租 2 台電動輔助自行車（E-bike）。</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. LIVE COUNTDOWN TIMER (Target: 2026-11-25 07:55 Taiwan Time UTC+8)
+    // =========================================================================
+    const targetDeparture = new Date('2026-11-25T07:55:00+08:00').getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = Math.max(0, targetDeparture - now);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('cdDays').textContent = String(days).padStart(2, '0');
+      document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cdMins').textContent = String(mins).padStart(2, '0');
+      document.getElementById('cdSecs').textContent = String(secs).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // =========================================================================
+    // 2. DUAL-MODE WEATHER WIDGET (Instant Seasonal Baseline + Open-Meteo API)
+    // =========================================================================
+    const weatherLocations = [
+      {
+        id: 'tokyo',
+        name: '🗼 東京市區（銀座・惠比壽）',
+        lat: 35.6762,
+        lon: 139.6503,
+        fallbackTemp: '8°C – 16°C',
+        fallbackDesc: '秋末晴朗乾爽，早晚微涼建議洋蔥式穿搭'
+      },
+      {
+        id: 'fuji',
+        name: '🗻 河口湖・富士山周邊',
+        lat: 35.5171,
+        lon: 138.7518,
+        fallbackTemp: '1°C – 11°C',
+        fallbackDesc: '山區清晨低溫且能見度高，必備防風羽絨衣與圍巾'
+      },
+      {
+        id: 'shonan',
+        name: '🌊 湘南海岸・江之島',
+        lat: 35.3089,
+        lon: 139.4803,
+        fallbackTemp: '7°C – 15°C',
+        fallbackDesc: '早晨順光看海上富士山最清晰，海風涼備防風外套'
+      }
+    ];
+
+    function renderWeatherCards(items, isLive) {
+      const grid = document.getElementById('heroWeatherGrid');
+      grid.innerHTML = items.map(loc => `
+        <div class="bg-white border-[2.5px] border-ink rounded-2xl p-3 space-y-1">
+          <div class="flex items-center justify-between gap-1">
+            <span class="font-bold text-xs sm:text-sm">${loc.name}</span>
+            <span class="ehon-tag ${isLive ? 'bg-wakatake' : 'bg-cream'} px-2 py-0.5 text-[11px] font-bold">
+              ${loc.temp}
+            </span>
+          </div>
+          <p class="text-xs opacity-85 leading-snug">${loc.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    // Immediate render on page load
+    renderWeatherCards(
+      weatherLocations.map(l => ({ name: l.name, temp: l.fallbackTemp, desc: l.fallbackDesc })),
+      false
+    );
+
+    function decodeWeatherCode(code) {
+      if (code === 0) return '☀️ 晴空萬里（看富士山絕佳）';
+      if (code <= 3) return '⛅ 多雲時晴・舒適宜人';
+      if (code <= 48) return '🌫️ 早晨薄霧';
+      if (code <= 67) return '🌧️ 降雨機率較高，記得帶傘';
+      if (code <= 77) return '❄️ 低溫降雪注意保暖';
+      return '🌦️ 局部陣雨';
+    }
+
+    async function syncLiveWeather() {
+      const badge = document.getElementById('weatherStatusBadge');
+      badge.textContent = '⏳ 正在同步 Open-Meteo 即時預報...';
+      try {
+        const results = await Promise.all(weatherLocations.map(async (loc) => {
+          const url = `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=16`;
+          const res = await fetch(url);
+          const data = await res.json();
+          const dates = data.daily.time;
+          let idx = dates.indexOf('2026-11-25');
+          let dateLabel = '11/25 首日預報';
+          if (idx === -1) {
+            idx = 0;
+            dateLabel = `${dates[0].slice(5)} 最新預報`;
+          }
+          const minT = Math.round(data.daily.temperature_2m_min[idx]);
+          const maxT = Math.round(data.daily.temperature_2m_max[idx]);
+          return {
+            name: loc.name,
+            temp: `${minT}°C – ${maxT}°C`,
+            desc: `${dateLabel}：${decodeWeatherCode(data.daily.weathercode[idx])}`
+          };
+        }));
+        renderWeatherCards(results, true);
+        badge.textContent = '✅ 已同步 Open-Meteo 2026 即時預報';
+        badge.className = 'ehon-tag bg-wakatake px-2.5 py-0.5 text-[11px] sm:text-xs font-bold';
+      } catch (e) {
+        badge.textContent = '📅 顯示歷年同期預估氣象（離線可用）';
+      }
+    }
+
+    document.getElementById('refreshWeatherBtn').addEventListener('click', syncLiveWeather);
+    syncLiveWeather();
+
+    // =========================================================================
+    // 3. STICKY 5-TAB SWITCHING
+    // =========================================================================
+    const mainTabPills = document.querySelectorAll('.main-tab-pill');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    mainTabPills.forEach(btn => {
+      btn.addEventListener('click', () => {
+        mainTabPills.forEach(b => {
+          b.classList.remove('bg-yamabuki');
+          b.classList.add('bg-white');
+        });
+        btn.classList.remove('bg-white');
+        btn.classList.add('bg-yamabuki');
+
+        const targetId = `tab-${btn.dataset.tab}`;
+        tabPanels.forEach(panel => {
+          if (panel.id === targetId) {
+            panel.classList.remove('hidden');
+            panel.classList.remove('anim-pop-bounce');
+            void panel.offsetWidth;
+            panel.classList.add('anim-pop-bounce');
+          } else {
+            panel.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // =========================================================================
+    // 4. DAILY ITINERARY DATA & INTERACTIVE DAY SELECTOR (DAY 1 – DAY 7)
+    //    - Every transit step includes explicit train/subway direction (往XX方向)
+    // =========================================================================
+    const itineraryDays = [
+      {
+        day: 1,
+        date: '11/25 (三)',
+        shortLabel: 'Day 1｜11/25',
+        title: '抵達東京 ➔ 銀座 UNIQLO 感謝祭 ➔ 日比谷聖誕點燈',
+        badgeColor: 'bg-coral',
+        hotel: 'Via Inn 東銀座（第 1 晚）',
+        summary: '長榮 BR184 抵達成田進東銀座入住休息 ➔ 下午散步逛銀座 UNIQLO TOKYO 感謝祭 ➔ 戰利品先放回飯店 ➔ 晚上兩手空空前往東京中城日比谷看聖誕點燈。',
+        events: [
+          {
+            time: '12:05 – 15:45',
+            title: '抵達成田機場 T1 ➔ 前往 Via Inn 東銀座入住休息',
+            desc: '入境領行李後，直接刷手機 Suica 進站搭乘直通電車免轉車直達「東銀座站」，辦理 Check-in 後先在房間稍作休息喘口氣（推大行李建議走東銀座站 A7／A8 出口搭乘電梯）。',
+            transit: '🚃 成田機場 T1 搭「京成電鐵 Access 特急」（務必選「往羽田機場（羽田空港）」或「往西馬込」方向，直通都營淺草線）｜無需轉車約 65 分鐘直達「東銀座站」｜IC 卡 ¥1,376',
+            mapQuery: 'Via+Inn+Higashi+Ginza'
+          },
+          {
+            time: '16:00 – 17:30',
+            title: '銀座 UNIQLO TOKYO（全球旗艦店・感謝祭採買）',
+            desc: '把握感謝祭倒數第二天黃金尺寸最齊全！位於 Marronnier Gate Ginza 2（1F–4F），同棟 5 樓有 GU、6 樓有大創 DAISO。',
+            transit: '🚶 從 Via Inn 東銀座平面步行約 8–10 分鐘即達（全程寬敞平坦人行道，無需搭地鐵）',
+            mapQuery: 'UNIQLO+TOKYO+Ginza',
+            highlight: '🛍️ 單店滿未稅 ¥5,000（含稅 ¥5,500）可辦免稅，請隨身攜帶護照正本。'
+          },
+          {
+            time: '17:45 – 18:15',
+            title: '返回 Via Inn 東銀座 放戰利品',
+            desc: '先將採買的購物袋送回飯店房間，完全不用提著大包小包擠地鐵、也不用花錢找置物櫃。',
+            transit: '🚶 原路平面散步 8–10 分鐘回飯店（若買太多袋子，店門口直接搭計程車回飯店也只要起跳價約 ¥500）',
+            mapQuery: 'Via+Inn+Higashi+Ginza'
+          },
+          {
+            time: '18:30 – 20:30',
+            title: '東京中城日比谷（Tokyo Midtown Hibiya）聖誕點燈 ＆ 晚餐',
+            desc: '兩手空空輕鬆散步或搭一站地鐵前往日比谷！欣賞「HIBIYA Magic Time Illumination」夢幻香檳金與漸層聖誕燈飾（一路延伸至日比谷仲通），商場樓上與地下美食街有多間全熟日式定食、天婦羅與烤魚料理，吃完散步回飯店完全不累。',
+            transit: '🚶 從 Via Inn 東銀座沿晴海通り平面步行約 10–12 分鐘即達｜🚇 若想省腳力：「東銀座站」搭 東京 Metro 日比谷線（往「中目黑」方向）僅 1 站（約 2 分鐘｜IC 卡 ¥178）至「日比谷站」（A11 出口直結商場）；回程搭 日比谷線（往「北千住／南千住」方向）1 站回「東銀座站」',
+            mapQuery: 'Tokyo+Midtown+Hibiya'
+          }
+        ]
+      },
+      {
+        day: 2,
+        date: '11/26 (四)',
+        shortLabel: 'Day 2｜11/26',
+        title: '外苑銀杏大道・明治神宮・代代木公園 ➔ 六本木 52F 展望台＆點燈',
+        badgeColor: 'bg-yamabuki',
+        hotel: 'Via Inn 東銀座（第 2 晚）',
+        summary: '早晨「明治神宮外苑銀杏大道」拍照 ➔ 明治神宮森林參道參拜 ➔ 表參道舞泉炸豬排午餐 ➔ 代代木公園銀杏林與紅葉草坪散步 ➔ 16:00 登上六本木之丘 52F 室內展望台看夕陽與東京鐵塔 ➔ 聖誕市集 ＆ 櫸坂通點燈。',
+        events: [
+          {
+            time: '09:15 – 10:30',
+            title: '【金黃銀杏必拍】明治神宮外苑銀杏大道（いちょう並木）',
+            desc: '全長約 300 公尺、146 棵高大銀杏樹並列而成的東京代表性金黃隧道！早晨順光拍照人潮較少、地面鋪滿金黃落葉，平坦寬敞的步道非常適合帶媽媽慢慢散步合影。',
+            transit: '🚇 「東銀座站」搭 東京 Metro 日比谷線（往「中目黑」方向）1 站至「銀座站」，站內轉乘 銀座線（往「澀谷」方向）5 站至「外苑前站」（合計約 18 分鐘｜IC 卡 ¥178，4a 出口步行 3 分鐘即達銀杏大道入口）',
+            mapQuery: 'Meiji+Jingu+Gaien+Ginkgo+Avenue',
+            koyoUrl: 'https://weathernews.jp/koyo/spot/24408/',
+            highlight: '🍂 11 月下旬正是明治神宮外苑銀杏最金黃的季節，點擊右上方「📍 地圖導航」可直接定位銀杏大道入口！'
+          },
+          {
+            time: '10:45 – 12:15',
+            title: '明治神宮參拜 ＆ 表參道櫸樹大道散步',
+            desc: '拍完銀杏大道後搭地鐵前往明治神宮，走在平緩寬敞的森林碎石參道參拜，感受市中心難得的靜謐綠意（若媽媽想多保留腳力，也可直接沿表參道散步前往午餐餐廳）。',
+            transit: '🚇 「外苑前站」搭 東京 Metro 銀座線（往「澀谷」方向）1 站至「表參道站」，站內轉乘 千代田線（往「代代木上原／伊勢原」方向）1 站至「明治神宮前〈原宿〉站」（合計約 8 分鐘｜IC 卡 ¥178，2 號出口即達南參道鳥居）',
+            mapQuery: 'Meiji+Jingu+Shrine'
+          },
+          {
+            time: '12:30 – 13:50',
+            title: '表參道熟食午餐（とんかつ まい泉 青山本店）',
+            desc: '推薦「とんかつ まい泉 青山本店」品嚐用筷子就能夾斷的軟嫩黑豚腰內豬排定食（ヒレかつ定食），和風挑高空間舒適寬敞，全熟現炸軟嫩好入口。',
+            transit: '🚶 從明治神宮沿表參道平面步行至舞泉青山本店約 8–10 分鐘',
+            mapQuery: 'Tonkatsu+Maisen+Aoyama+Honten'
+          },
+          {
+            time: '14:00 – 15:20',
+            title: '代代木公園 銀杏林 ＆ 紅葉草坪悠閒散步',
+            desc: '餐後沿表參道往原宿方向散步走進代代木公園！11 月下旬公園「原宿門」與「中央廣場噴水池」周邊有大片金黃銀杏林與轉紅楓葉交織，開闊平坦的草坪與林蔭步道非常適合帶媽媽輕鬆走走拍照（建議鎖定中央廣場銀杏區逛 45–60 分鐘即可，保留體力給傍晚行程）。',
+            transit: '🚶 從舞泉青山本店沿表參道往原宿方向平面步行約 10 分鐘即達代代木公園「原宿門」',
+            mapQuery: 'Yoyogi+Park',
+            koyoUrl: 'https://weathernews.jp/koyo/spot/24409/',
+            highlight: '🍁 逛完直接從原宿門旁進地鐵站，搭千代田線免轉車 2 站（4 分鐘）就到六本木，動線完全不走回頭路！'
+          },
+          {
+            time: '16:00 – 18:15',
+            title: '六本木之丘 52F 展望台（Tokyo City View）看夕陽與東京鐵塔',
+            desc: '取消戶外吹風的澀谷 Sky，改登六本木之丘森大樓 52 樓「Tokyo City View」全室內 11 公尺挑高玻璃帷幕展望台！免寄物、免吹冷風就能近距離平視東京鐵塔，16:00 左右入場正好一次收錄落日餘暉與華燈初上的東京夜景。',
+            transit: '🚇 代代木公園原宿門旁「明治神宮前〈原宿〉站」搭 東京 Metro 千代田線（往「綾瀨／北千住／我孫子」方向）免轉車 2 站（約 4 分鐘｜IC 卡 ¥178）直達「乃木坂站」（5 號出口步行約 8 分鐘即達六本木之丘）',
+            mapQuery: 'Tokyo+City+View+Roppongi+Hills',
+            highlight: '🗼 全室內恆溫玻璃帷幕展望台對長輩極度友善，近距離平視東京鐵塔絕無遮擋！'
+          },
+          {
+            time: '18:15 – 20:30',
+            title: '六本木之丘 聖誕市集 ＆ 櫸坂通聖誕點燈 ➔ 返回東銀座',
+            desc: '從展望台下樓後直接逛營業至 21:00 的大屋頂廣場歐風聖誕市集並享用晚餐（推薦 AFURI 柚子鹽拉麵或豚組食堂全熟炸豬排），再到櫸坂通拍攝 400 公尺銀白藍光燈海與東京鐵塔同框夜景（亮燈至 23:00）。',
+            transit: '🚶 位於六本木之丘同園區內步行即達｜🚇 回程：「六本木站」搭 東京 Metro 日比谷線（往「北千住／南千住」方向）直達「東銀座站」（約 12 分鐘｜IC 卡 ¥178）',
+            mapQuery: 'Roppongi+Hills+Keyakizaka+Illumination'
+          }
+        ]
+      },
+      {
+        day: 3,
+        date: '11/27 (五)',
+        shortLabel: 'Day 3｜11/27',
+        title: '淺草雷門、上野午餐＆tutuanna ➔ 東大銀杏・根津神社 ➔ 丸之內聖誕點燈',
+        badgeColor: 'bg-coral',
+        hotel: 'Via Inn 東銀座（第 3 晚）',
+        summary: '淺草寺雷門早晨參拜 ➔ 上野享用全熟午餐並順路逛 tutuanna ➔ 上野公園與東京大學金黃銀杏大道 ➔ 根津神社千本鳥居 ➔ 搭千代田線免轉車直達丸之內仲通香檳金聖誕點燈。',
+        events: [
+          {
+            time: '09:00 – 11:30',
+            title: '淺草寺雷門 ＆ 仲見世通熟食小吃',
+            desc: '趁上午團客較少時在雷門大燈籠前與媽媽合影，沿仲見世通散步品嚐現烤人形燒、仙貝與熱騰騰炸肉餅。',
+            transit: '🚇 「東銀座站」搭 都營淺草線（往「押上／青砥／成田機場」方向）無需轉車約 12 分鐘直達「淺草站」（IC 卡 ¥180，A4 出口步行 2 分鐘即達雷門）',
+            mapQuery: 'Senso-ji+Temple'
+          },
+          {
+            time: '11:45 – 15:15',
+            title: '上野全熟午餐 ➔ 順路逛 tutuanna ➔ 上野公園 ＆ 東大銀杏大道',
+            desc: '先在上野享用全熟午餐（洋食黒船亭紅酒燉牛肉或伊豆榮鰻魚飯），飯後順路逛 JR 上野站共構「atre 上野（アトレ上野）」或正對面「上野丸井（0101）」的 tutuanna 專櫃挑保暖襪與家居服（有電梯與空調），接著散步穿過上野公園至東京大學欣賞百年金黃銀杏並木道。',
+            transit: '🚇 「淺草站」搭 東京 Metro 銀座線（往「澀谷」方向）搭 3 站（約 5 分鐘｜IC 卡 ¥178）直達「上野站」｜餐後從上野公園平面步行約 8 分鐘即達東京大學本鄉校區',
+            mapQuery: 'The+University+of+Tokyo+Hongo+Campus',
+            koyoUrl: 'https://weathernews.jp/koyo/spot/24412/'
+          },
+          {
+            time: '15:30 – 16:45',
+            title: '根津神社千本鳥居（谷中銀座老街備選）',
+            desc: '從東大漫步約 10 分鐘至江戶風情濃厚的根津神社欣賞朱紅千本鳥居，視媽媽體力決定是否順遊谷中銀座。',
+            transit: '🚶 從東京大學「彌生門」出校門後下坡平面步行約 8–10 分鐘即達根津神社',
+            mapQuery: 'Nezu+Shrine'
+          },
+          {
+            time: '17:15 – 19:30',
+            title: '丸之內仲通 香檳金聖誕點燈 ➔ 晚餐後返回東銀座',
+            desc: '從根津站搭千代田線免轉車只要 9 分鐘直達丸之內！整排歐風行道樹掛滿約 120 萬顆香檳金 LED 燈泡，氣氛浪漫且路面平坦好走；今晚先看完璀璨點燈並享用熟食晚餐，Day 6 下午東京車站買完伴手禮就能早點回大井町休息。',
+            transit: '🚇 去程：步行約 5 分鐘至「根津站」搭 東京 Metro 千代田線（往「代代木上原／伊勢原」方向）免轉車 4 站（約 9 分鐘｜IC 卡 ¥178）直達「二重橋前〈丸之內〉站」（1 號或 4 號出口即達丸之內仲通）｜🚇 回程：「二重橋前〈丸之內〉站」搭 千代田線（往「代代木上原」方向）1 站至「日比谷站」，站內轉乘 日比谷線（往「北千住／南千住」方向）3 站回「東銀座站」（約 10 分鐘｜IC 卡 ¥178；若散步至有樂町／銀座一帶也可直接走回飯店）',
+            mapQuery: 'Marunouchi+Naka-dori+Avenue'
+          }
+        ]
+      },
+      {
+        day: 4,
+        date: '11/28 (六)',
+        shortLabel: 'Day 4｜11/28',
+        title: '富士山精華一日遊 ＆ 入住富士山站',
+        badgeColor: 'bg-mizuiro',
+        hotel: '富士鳥居門酒店（1 晚）',
+        summary: '東京車站丸之內北口出發 ➔ 富士五湖五大絕景打卡 ➔ 16:20 新倉山淺間公園解散 ➔ 入住富士山站。',
+        events: [
+          {
+            time: '早上集合',
+            title: '【已預訂】東京車站丸之內北口 集合出發',
+            desc: '退房並攜帶過夜行李（大行李箱可寄放東京或宅急便寄至大井町飯店），於丸之內北口搭乘專車前往富士山。',
+            transit: '🚇 「東銀座站」搭 東京 Metro 日比谷線（往「中目黑」方向）1 站至「銀座站」，站內轉乘 丸之內線（往「池袋」方向）1 站至「東京站」丸之內北口出站（約 10 分鐘｜IC 卡 ¥178；提過夜袋不想轉車可搭計程車約 8 分鐘約 ¥1,000）',
+            mapQuery: 'Tokyo+Station+Marunouchi+North+Exit',
+            highlight: '🚌 已預訂 11/28 富士山精華一日遊，請提前 10 分鐘抵達集合點。'
+          },
+          {
+            time: '全天精華',
+            title: '山中湖・忍野八海・LAWSON・大石公園・日川時計店',
+            desc: '一天輕鬆網羅富士山最經典機位：山中湖白鳥濱、忍野八海清澈湧泉、河口湖網紅 LAWSON、大石公園湖畔花草與日川時計店天梯街景。',
+            transit: '🚌 全程一日遊專屬旅遊巴士接駁，免自行轉乘山區公車',
+            mapQuery: 'Oishi+Park+Kawaguchiko'
+          },
+          {
+            time: '16:20 解散',
+            title: '淺間神社 ＆ 新倉山淺間公園 ➔ 富士鳥居門酒店',
+            desc: '欣賞五重塔與富士山同框美景後，16:20 於淺間公園解散，步行至「下吉田站」搭純電車至「富士山站」入住。晚餐享用山梨名物南瓜蔬菜寬麵鍋（餺飥麵，記得備現金）。',
+            transit: '🚃 步行約 10 分鐘至「下吉田站」，搭乘 富士急行線普通電車（往「河口湖」方向）搭 2 站（約 5 分鐘｜IC 卡 ¥230）至「富士山站」下車，出站步行 3–5 分鐘即達飯店',
+            mapQuery: 'Fuji+Torii+Gate+Hotel+Fujiyoshida'
+          }
+        ]
+      },
+      {
+        day: 5,
+        date: '11/29 (日)',
+        shortLabel: 'Day 5｜11/29',
+        title: '河口湖 E-bike 環湖 ➔ 富士迴游 ➔ 惠比壽點燈',
+        badgeColor: 'bg-mizuiro',
+        hotel: 'Via Inn 東京大井町（連住第 1 晚）',
+        summary: '上午河口湖電動單車輕鬆環湖 ➔ 15:06 搭乘富士迴游直達新宿 ➔ 入住大井町 ➔ 晚上惠比壽聖誕點燈（含休息備案）。',
+        events: [
+          {
+            time: '09:00 – 14:00',
+            title: '河口湖 電動輔助單車（E-bike）輕鬆環湖',
+            desc: '退房寄放行李後搭電車至河口湖站，租借電動輔助自行車（省力不費膝蓋），沿湖畔騎經河口湖大橋、產屋崎、大石公園拍逆富士，中午在湖畔享用全熟午餐。',
+            transit: '🚃 去程：「富士山站」搭 富士急行線（往「河口湖」方向）1 站直達「河口湖站」（約 6 分鐘｜IC 卡 ¥230）｜回程：「河口湖站」搭 富士急行線（往「大月／富士山」方向）1 站回「富士山站」取行李',
+            mapQuery: 'Kawaguchiko+Station'
+          },
+          {
+            time: '15:06 – 16:58',
+            title: '【已預訂】JR 特急「富士迴游 36 號」直達新宿',
+            desc: '返回富士山站取行李上車，15:06 準時發車全車指定席舒適回東京，16:58 抵達新宿站。',
+            transit: '🚆 「富士山站」走人工驗票口出示車票，搭乘 15:06 JR 特急「富士迴游 36 號」（往「新宿」方向）免轉車直達「新宿站」',
+            mapQuery: 'Mt.+Fuji+Station',
+            highlight: '🎟️ 已預訂 15:06 富士迴游 36 號！進站請走人工驗票口出示指定席實體車票。'
+          },
+          {
+            time: '17:00 – 18:00',
+            title: '入住 Via Inn 東京大井町（11/29–12/1 連住兩晚）',
+            desc: '從新宿轉乘直通電車至大井町站辦理入住並放好行李，接下來兩天都不用再搬行李箱！',
+            transit: '🚃 於 JR「新宿站」搭乘 JR 埼京線／臨海線直通電車（務必選「往新木場（新木場行き）」方向）免轉車約 20 分鐘直達「大井町站」（IC 卡 ¥320，中央口步行 2 分鐘）',
+            mapQuery: 'Via+Inn+Tokyo+Oimachi'
+          },
+          {
+            time: '18:30 – 20:30',
+            title: '惠比壽花園廣場 聖誕點燈（巴卡拉水晶吊燈 ＆ 聖誕樹）',
+            desc: '從大井町搭直通電車 2 站僅 7 分鐘直達惠比壽，走有屋頂的 Skywalk 電動步道欣賞巨型巴卡拉水晶吊燈夜景，拍完在惠比壽吃完熟食晚餐再回飯店。',
+            transit: '🚃 去程：「大井町站」搭 臨海線直通 JR 埼京線（往「大崎／新宿／大宮」方向）免轉車 2 站（約 7 分鐘｜IC 卡 ¥320）直達「惠比壽站」｜回程：「惠比壽站」搭 JR 埼京線／臨海線直通（務必選「往新木場」方向）直達「大井町站」',
+            mapQuery: 'Yebisu+Garden+Place',
+            highlight: '💡 【體力彈性備案】若下午搭車後媽媽覺得累了，可隨時取消前往惠比壽，直接留在飯店正對面的 Atre 大井町百貨美食街吃晚餐、逛伊藤洋華堂超市買草莓早點休息（隔天中午吃敘敘苑前仍看得到白天的水晶吊燈）。'
+          }
+        ]
+      },
+      {
+        day: 6,
+        date: '11/30 (一)',
+        shortLabel: 'Day 6｜11/30',
+        title: '湘南海上富士山 ➔ 高空敘敘苑 ➔ 丸之內銀杏採買',
+        badgeColor: 'bg-wakatake',
+        hotel: 'Via Inn 東京大井町（連住第 2 晚）',
+        summary: '早晨輕裝快閃湘南海岸公園看海上富士山 ➔ 12:00 高空敘敘苑商業午餐 ➔ 下午東京車站丸之內紅磚銀杏與伴手禮採買。',
+        events: [
+          {
+            time: '07:50 – 10:15',
+            title: '神奈川縣立湘南海岸公園（海浪＋雪頂富士山同框）',
+            desc: '連住免退房！直接從房間輕裝出發，走在完全無階梯的平坦木棧道上，捕捉相模灣海浪、江之島與雪頂富士山同框的早晨順光絕景（出門前可先看「江の島 ライブカメラ」確認能見度，海風涼記得加防風外套）。',
+            transit: '🚃 僅轉 1 次車（單程合計 ¥969）：①「大井町站」搭 JR 京濱東北線（務必選「往大船（大船行き）」方向，早高峰反方向、過橫濱常有空位，40 分｜IC 卡 ¥649）至終點「大船站」➔ ② 出站轉懸掛式「湘南單軌電車（往「湘南江之島」方向，14 分｜IC 卡 ¥320）」至終點「湘南江之島站」，步行約 8 分鐘即達海邊公園',
+            mapQuery: 'Shonan+Kaigan+Park'
+          },
+          {
+            time: '10:25 – 11:35',
+            title: '湘南江之島 ➔ 一班車直達惠比壽花園廣場',
+            desc: '步行回車站搭單軌電車返回大船，轉乘 JR 湘南新宿線免轉車直達惠比壽站，10 點半已過通勤尖峰、車廂寬敞安靜。',
+            transit: '🚃 ①「湘南江之島站」搭 湘南單軌電車（往「大船」方向，14 分｜¥320）回「大船站」➔ ② 轉乘 JR 湘南新宿線（往「新宿／宇都宮／高崎」方向，免轉車約 45 分｜¥737）直達「惠比壽站」',
+            mapQuery: 'Ebisu+Station'
+          },
+          {
+            time: '12:00 – 13:30',
+            title: '【已預約 12:00】敘敘苑 惠比壽花園廣場店（38/39樓景觀席）',
+            desc: '從惠比壽站走有屋頂的 Skywalk 電動步道平路直達塔樓，邊俯瞰東京高空景色與東京鐵塔，邊享用平日商業午餐（建議點 ¥4,200「ミックスランチ綜合午餐」：只有純和牛五花＋里肌＋鮮蝦，完全避開牛舌與內臟）。',
+            transit: '🚶 惠比壽站東口 Skywalk 電動步道直達（全程有屋頂平路約 6 分鐘）',
+            mapQuery: 'Jojoen+Yebisu+Garden+Place',
+            highlight: '🥩 已預約 11/30（週一）12:00 高空景觀席！點餐可出示「記帳工具」分頁的純牛肉日文點指卡。'
+          },
+          {
+            time: '14:00 – 18:00',
+            title: '東京車站丸之內紅磚站舍 ＆ 行幸通銀杏大道 ➔ 伴手禮採買',
+            desc: '拍攝午後斜陽下的紅磚站舍與行幸通金黃銀杏大道，上 KITTE 大樓 6 樓免費屋頂花園看全景，接著走進東京車站一番街、大丸百貨一次買齊伴手禮（因 Day 3 晚上已先逛過丸之內仲通點燈，買完即可依媽媽體力隨時回大井町休息）。',
+            transit: '🚇 去程（全室內轉乘最省力）：「惠比壽站」搭 東京 Metro 日比谷線（往「北千住」方向）至「銀座站」轉 丸之內線（往「池袋」方向）1 站至「東京站」（約 20 分｜IC 卡 ¥209）｜回程：「東京站」搭 JR 京濱東北線（往「品川・橫濱・大船」方向）免轉車 15 分鐘直達「大井町站」（IC 卡 ¥230）',
+            mapQuery: 'Gyoko-dori+Avenue+Tokyo+Station'
+          }
+        ]
+      },
+      {
+        day: 7,
+        date: '12/01 (二)',
+        shortLabel: 'Day 7｜12/01',
+        title: '悠閒補貨整理 ➔ 羽田機場平安返台',
+        badgeColor: 'bg-yamabuki',
+        hotel: '溫暖的家（台北松山 TSA）',
+        summary: '大井町站前超市藥妝最後補貨 ➔ 搭利木津巴士或電車輕鬆前往羽田機場 T3 ➔ 搭乘長榮 BR191 返台。',
+        events: [
+          {
+            time: '08:00 – 09:00',
+            title: '退房整理 ➔ 前往羽田機場第 3 航廈',
+            desc: '大井町距離羽田機場非常近，首選於大井町站東口搭乘直達利木津巴士（約 25 分鐘直達航廈門口免搬行李），或搭電車轉京急線前往。',
+            transit: '🚌 首選：大井町站東口搭「京急利木津巴士（往「羽田機場第 3 航廈」方向）」約 25 分鐘直達航廈門口｜🚃 電車備案：「大井町站」搭 JR 京濱東北線（往「橫濱・大船」方向）至「蒲田站」，轉乘 京急機場線（往「羽田機場第 1・第 2 航廈」方向）至「羽田機場第 3 航廈站」',
+            mapQuery: 'Haneda+Airport+Terminal+3'
+          },
+          {
+            time: '09:30 – 12:15',
+            title: '羽田國際線「江戶小路」熟食午餐 ＆ 免稅店最後採買',
+            desc: '逛古色古香的 4 樓江戶小路享用冠軍燒肉丼或烏龍麵，入關後在免稅店補齊伴手禮，12:15 搭乘長榮 BR191 平安飛回台北松山機場（15:05 抵達）。',
+            transit: '✈️ 長榮航空 EVA BR191（12:15 羽田機場 T3 起飛 ➔ 15:05 抵達台北松山機場）',
+            mapQuery: 'Edo+Koji+Haneda+Airport'
+          }
+        ]
+      }
+    ];
+
+    let activeDay = 1;
+
+    function renderDaySelector() {
+      const bar = document.getElementById('daySelectorBar');
+      bar.innerHTML = itineraryDays.map(d => {
+        const isActive = d.day === activeDay;
+        return `
+          <button type="button" data-day="${d.day}"
+                  class="day-pill ehon-pill ${isActive ? 'bg-yamabuki' : 'bg-white'} shrink-0 px-3.5 py-2 text-xs sm:text-sm font-bold">
+            ${d.shortLabel}
+          </button>
+        `;
+      }).join('');
+
+      bar.querySelectorAll('.day-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeDay = Number(btn.dataset.day);
+          renderDaySelector();
+          renderActiveDayContent();
+        });
+      });
+    }
+
+    function renderActiveDayContent() {
+      const container = document.getElementById('dayContentContainer');
+      const dayObj = itineraryDays.find(d => d.day === activeDay);
+      if (!dayObj) return;
+
+      container.innerHTML = `
+        <div class="ehon-card p-4 sm:p-6 space-y-4 anim-pop-bounce">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b-[3px] border-dashed border-ink pb-3">
+            <div class="space-y-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="ehon-tag ${dayObj.badgeColor} px-3 py-0.5 text-xs sm:text-sm font-bold">
+                  Day ${dayObj.day}・${dayObj.date}
+                </span>
+                <span class="ehon-tag bg-cream px-3 py-0.5 text-xs font-bold">
+                  🏨 ${dayObj.hotel}
+                </span>
+              </div>
+              <h2 class="text-xl sm:text-2xl font-bold pt-1">${dayObj.title}</h2>
+            </div>
+          </div>
+
+          <div class="ehon-card-cream p-3 text-xs sm:text-sm font-bold leading-relaxed">
+            ✨ 當日動線亮點：${dayObj.summary}
+          </div>
+
+          <div class="space-y-3.5">
+            ${dayObj.events.map(ev => `
+              <div class="ehon-card-washi p-4 space-y-2">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="ehon-tag bg-yamabuki px-3 py-0.5 text-xs font-bold">⏰ ${ev.time}</span>
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    ${ev.koyoUrl ? `
+                      <a href="${ev.koyoUrl}" target="_blank" rel="noopener noreferrer"
+                         class="ehon-pill bg-coral px-3 py-1 text-xs font-bold">
+                        🍁 紅葉實況
+                      </a>
+                    ` : ''}
+                    <a href="https://www.google.com/maps/search/?api=1&query=${ev.mapQuery}" target="_blank" rel="noopener noreferrer"
+                       class="ehon-pill bg-mizuiro px-3 py-1 text-xs font-bold">
+                      📍 地圖導航
+                    </a>
+                  </div>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold">${ev.title}</h3>
+                <p class="text-xs sm:text-sm leading-relaxed text-ink/90">${ev.desc}</p>
+                <div class="bg-white border-2 border-ink rounded-2xl px-3 py-2 text-xs font-bold leading-relaxed">
+                  ${ev.transit}
+                </div>
+                ${ev.highlight ? `
+                  <div class="bg-yamabuki/45 border-2 border-dashed border-ink rounded-2xl px-3 py-2 text-xs font-bold leading-relaxed">
+                    ${ev.highlight}
+                  </div>
+                ` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    renderDaySelector();
+    renderActiveDayContent();
+
+    // =========================================================================
+    // 5. PRE-TRIP & PACKING CHECKLISTS (with localStorage)
+    // =========================================================================
+    const defaultPretrip = [
+      { id: 'pt1', text: '檢查母女護照效期（需超過 6 個月以上）', done: true },
+      { id: 'pt2', text: '填寫 Visit Japan Web（入境審查 ＆ 海關申報 QR Code）', done: false },
+      { id: 'pt3', text: '手機 Apple Pay / Google Pay 綁定 Suica / ICOCA 並儲值', done: false },
+      { id: 'pt4', text: '下載離線網卡 / 開通日本漫遊 eSIM', done: false },
+      { id: 'pt5', text: '存好 富士山一日遊、富士迴游、敘敘苑預約憑證（及六本木展望台門票）', done: true },
+      { id: 'pt6', text: '截圖日本 UNIQLO 感謝祭電子傳單（Day 1 下午直接挑貨）', done: false },
+      { id: 'pt7', text: '投保海外旅平險 ＆ 旅遊不便險', done: false }
+    ];
+
+    const defaultPacking = [
+      { id: 'pk1', text: '防風保暖羽絨外套（河口湖與湘南早晨海邊必備）', done: false },
+      { id: 'pk2', text: '好走防滑的運動鞋／健走鞋（保護媽媽膝蓋）', done: false },
+      { id: 'pk3', text: '洋蔥式內搭衣物、薄毛衣、圍巾與保暖襪', done: false },
+      { id: 'pk4', text: '貼式暖暖包、保濕乳液與護唇膏（日本秋冬乾燥）', done: false },
+      { id: 'pk5', text: '個人常備藥品（腸胃藥、止痛藥、OK繃、休足時間）', done: false },
+      { id: 'pk6', text: '摺疊晴雨傘、行動電源 ＆ 充電線', done: false },
+      { id: 'pk7', text: '過夜小旅行袋（Day 4 去富士山住一晚輕裝用）', done: false }
+    ];
+
+    let pretripItems = JSON.parse(localStorage.getItem('ehon_pretrip_2026_v3') || 'null') || defaultPretrip;
+    let packingItems = JSON.parse(localStorage.getItem('ehon_packing_2026_v3') || 'null') || defaultPacking;
+
+    function saveChecklists() {
+      localStorage.setItem('ehon_pretrip_2026_v3', JSON.stringify(pretripItems));
+      localStorage.setItem('ehon_packing_2026_v3', JSON.stringify(packingItems));
+    }
+
+    function renderChecklists() {
+      const ptUl = document.getElementById('pretripListUl');
+      const pkUl = document.getElementById('packingListUl');
+
+      ptUl.innerHTML = pretripItems.map((item, idx) => `
+        <li class="flex items-center justify-between gap-2 bg-washi border-2 border-ink rounded-2xl px-3 py-2 ${item.done ? 'opacity-65' : ''}">
+          <label class="flex items-center gap-2.5 cursor-pointer flex-1 text-xs sm:text-sm font-bold">
+            <input type="checkbox" ${item.done ? 'checked' : ''} data-type="pt" data-idx="${idx}"
+                   class="w-5 h-5 accent-[#3E3A39] shrink-0 cursor-pointer" />
+            <span class="${item.done ? 'line-through' : ''}">${item.text}</span>
+          </label>
+          <button type="button" data-del-type="pt" data-idx="${idx}" class="text-xs font-bold px-2 py-0.5 bg-coral/60 border-2 border-ink rounded-full">✕</button>
+        </li>
+      `).join('');
+
+      pkUl.innerHTML = packingItems.map((item, idx) => `
+        <li class="flex items-center justify-between gap-2 bg-washi border-2 border-ink rounded-2xl px-3 py-2 ${item.done ? 'opacity-65' : ''}">
+          <label class="flex items-center gap-2.5 cursor-pointer flex-1 text-xs sm:text-sm font-bold">
+            <input type="checkbox" ${item.done ? 'checked' : ''} data-type="pk" data-idx="${idx}"
+                   class="w-5 h-5 accent-[#3E3A39] shrink-0 cursor-pointer" />
+            <span class="${item.done ? 'line-through' : ''}">${item.text}</span>
+          </label>
+          <button type="button" data-del-type="pk" data-idx="${idx}" class="text-xs font-bold px-2 py-0.5 bg-coral/60 border-2 border-ink rounded-full">✕</button>
+        </li>
+      `).join('');
+
+      const ptDone = pretripItems.filter(i => i.done).length;
+      const pkDone = packingItems.filter(i => i.done).length;
+      const totalDone = ptDone + pkDone;
+      const totalAll = pretripItems.length + packingItems.length;
+      const pct = totalAll > 0 ? Math.round((totalDone / totalAll) * 100) : 0;
+
+      document.getElementById('pretripCountBadge').textContent = `${ptDone}/${pretripItems.length}`;
+      document.getElementById('packingCountBadge').textContent = `${pkDone}/${packingItems.length}`;
+      document.getElementById('checklistProgressText').textContent = `${totalDone} / ${totalAll} 完成 (${pct}%)`;
+      document.getElementById('checklistProgressBar').style.width = `${pct}%`;
+
+      document.querySelectorAll('#tab-checklists input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          const idx = Number(e.target.dataset.idx);
+          if (e.target.dataset.type === 'pt') pretripItems[idx].done = e.target.checked;
+          else packingItems[idx].done = e.target.checked;
+          saveChecklists();
+          renderChecklists();
+        });
+      });
+
+      document.querySelectorAll('#tab-checklists button[data-del-type]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.idx);
+          if (btn.dataset.delType === 'pt') pretripItems.splice(idx, 1);
+          else packingItems.splice(idx, 1);
+          saveChecklists();
+          renderChecklists();
+        });
+      });
+    }
+
+    document.getElementById('addPretripForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('newPretripInput');
+      const val = input.value.trim();
+      if (!val) return;
+      pretripItems.push({ id: 'pt_' + Date.now(), text: val, done: false });
+      input.value = '';
+      saveChecklists();
+      renderChecklists();
+    });
+
+    document.getElementById('addPackingForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('newPackingInput');
+      const val = input.value.trim();
+      if (!val) return;
+      packingItems.push({ id: 'pk_' + Date.now(), text: val, done: false });
+      input.value = '';
+      saveChecklists();
+      renderChecklists();
+    });
+
+    renderChecklists();
+
+    // =========================================================================
+    // 6. CURATED ALL-COOKED FOOD GUIDE (NO RAW FISH, NO TONGUE, NO OFFAL)
+    // =========================================================================
+    const restaurants = [
+      // Day 1
+      { day: 1, name: '鈴波（東京中城日比谷 B1）', area: '日比谷', price: '¥1,600–¥2,200', tag: '名古屋老字號味醂粕漬烤魚定食', desc: '看完日比谷聖誕點燈直接下樓即可享用！現烤全熟銀鱈魚與季節魚片搭配越光米飯與紅味噌湯，清甜不油膩，非常適合長輩胃口。', query: 'Suzunami+Tokyo+Midtown+Hibiya' },
+      { day: 1, name: 'とんかつ 檍（銀座店）', area: '銀座／東銀座', price: '¥1,800–¥2,500', tag: '全熟林SPF炸豬排定食', desc: '距離 Via Inn 東銀座步行僅 5 分鐘，推薦肉質軟嫩的「ヒレカツ定食（腰內肉炸豬排）」，長輩咬起來毫不費力。', query: 'Tonkatsu+Aoki+Ginza' },
+      { day: 1, name: '銀座 梅林 本店', area: '銀座', price: '¥1,800–¥2,600', tag: '老字號炸豬排＆滑蛋豬排丼', desc: '銀座創業近百年的老牌豬排店，全熟現炸里肌與特製豬排醬非常下飯，點餐時可請店家將蛋煮至全熟。', query: 'Ginza+Bairin+Honten' },
+      // Day 2
+      { day: 2, name: 'とんかつ まい泉（舞泉 青山本店）', area: '表參道', price: '¥1,800–¥2,800', tag: '筷子就能夾斷的黑豚腰內豬排', desc: '參拜完明治神宮散步即可抵達，和風挑高空間舒適寬敞，是帶媽媽吃表參道午餐的首選。', query: 'Tonkatsu+Maisen+Aoyama+Honten' },
+      { day: 2, name: 'AFURI 阿夫利拉麵（六本木之丘店）', area: '六本木', price: '¥1,200–¥1,600', tag: '柚子鹽炙燒叉燒拉麵', desc: '湯頭清爽帶有淡雅柚子香氣，搭配現烤炭香豬叉燒，看完六本木 52F 展望台與聖誕點燈吃一碗暖胃不油膩。', query: 'AFURI+Roppongi+Hills' },
+      { day: 2, name: '豚組食堂（六本木之丘 North Tower B1）', area: '六本木', price: '¥1,600–¥2,300', tag: '嚴選品牌豬全熟炸豬排定食', desc: '看完展望台與櫸坂通點燈就在同園區內用餐！外皮金黃酥脆、肉質多汁全熟，白飯與高麗菜絲皆可續加。', query: 'Butagumi+Shokudo+Roppongi+Hills' },
+      // Day 3
+      { day: 3, name: '洋食 黒船亭（上野公園不忍池畔）', area: '上野', price: '¥2,500–¥3,800', tag: '百年老店紅酒燉牛肉＆漢堡排', desc: '上野知名百年洋食館，慢火熬煮的紅酒燉牛肉與多汁漢堡排軟嫩入味，深受長輩喜愛。', query: 'Kurofunetei+Ueno' },
+      { day: 3, name: '伊豆榮 本店（上野公園旁）', area: '上野', price: '¥3,200–¥4,800', tag: '江戶前炭烤蒲燒鰻魚飯', desc: '就在上野公園旁，蒲燒鰻魚鬆軟無刺、醬汁甘醇，搭配熱茶與味噌湯（不喝鰻肝湯可換味噌湯）。', query: 'Izuei+Honten+Ueno' },
+      { day: 3, name: '丸之內 OAZO 熟食餐廳街（和幸炸豬排／烏龍麵）', area: '丸之內', price: '¥1,600–¥2,500', tag: '全熟炸豬排、烏龍麵與釜飯定食', desc: '欣賞完丸之內仲通香檳金點燈後，可直接在丸之內 OAZO 或新丸大樓室內餐廳街享用全熟熱食晚餐，暖和又免吹風。', query: 'Marunouchi+Oazo' },
+      // Day 4
+      { day: 4, name: 'ほうとう不動（河口湖／富士山站周邊）', area: '富士山站／河口湖', price: '¥1,320', tag: '山梨名物南瓜蔬菜寬扁烏龍鍋', desc: '用大鐵鍋端上桌的滾燙味噌湯底，加入大量甜南瓜、山菜與手工寬麵，山區夜晚吃一鍋全身暖呼呼（此店只收現金）。', query: 'Houtou+Fudou+Kawaguchiko' },
+      { day: 4, name: '甲州ほうとう 小作（河口湖店）', area: '河口湖', price: '¥1,400–¥2,000', tag: '豬肉／雞肉豪華餺飥鍋', desc: '配料更豐富的鄉土鍋物名店，可選豬肉鍋或鴨肉鍋，全熟滾煮超暖胃。', query: 'Kosaku+Kawaguchiko' },
+      // Day 5
+      { day: 5, name: '河口湖 湖畔咖啡＆富士山咖哩餐廳', area: '河口湖畔', price: '¥1,400–¥2,200', tag: '富士山造型咖哩飯＆漢堡排', desc: 'Day 5 上午騎 E-bike 環湖時，可直接在河口湖畔景觀餐廳享用全熟咖哩飯或炸蝦定食。', query: 'Lake+Kawaguchi+Cafe' },
+      { day: 5, name: 'Atre 大井町 6F 熟食餐廳街（和幸炸豬排／定食屋）', area: '大井町', price: '¥1,400–¥2,200', tag: '飯店正對面免吹風晚餐', desc: 'Day 5 晚上若從惠比壽回來或決定留在大井町休息，飯店對面百貨 6 樓有多間全熟炸豬排、烏龍麵與定食餐廳。', query: 'Atre+Oimachi' },
+      // Day 6
+      { day: 6, name: '【已預約 12:00】敘敘苑 惠比壽花園廣場店（38/39F）', area: '惠比壽', price: '午間 ¥4,200', tag: '高空景觀純和牛燒肉商業午餐', desc: '已預約 11/30 12:00 景觀席！建議點「ミックスランチ（綜合午間套餐，¥4,200）」，只有紅肉里肌＋牛五花＋鮮蝦，完全無牛舌、無內臟、無生食！', query: 'Jojoen+Yebisu+Garden+Place', booked: true },
+      { day: 6, name: 'つばめグリル（Tsubame Grill 大丸東京店 12F）', area: '東京車站', price: '¥1,800–¥2,300', tag: '錫箔紙包燉煮牛肉漢堡排', desc: '下午採買完東京車站伴手禮若想順便吃晚餐，招牌錫箔紙包燉煮漢堡排與整顆冰鎮番茄沙拉非常受日本長輩歡迎。', query: 'Tsubame+Grill+Daimaru+Tokyo' },
+      { day: 6, name: '矢場とん（東京車站一番街店）', area: '東京車站', price: '¥1,700–¥2,100', tag: '名古屋名物味噌炸豬排定食', desc: '全熟現炸里肌豬排淋上濃郁赤味噌醬，就在東京車站地下街，採買動線超順路。', query: 'Yabaton+Tokyo+Station' },
+      // Day 7
+      { day: 7, name: '焼肉チャンピオン（羽田機場國際線 4F 江戶小路）', area: '羽田機場 T3', price: '¥1,600–¥2,400', tag: '純和牛燒肉捲／燒肉丼', desc: '登機前在江戶小路必吃的全熟和牛燒肉飯捲與燒肉便當，完全無牛舌與內臟，為旅程完美收尾。', query: 'Yakiniku+Champion+Haneda+Airport' },
+      { day: 7, name: 'せたが屋（羽田機場國際線 4F 江戶小路）', area: '羽田機場 T3', price: '¥1,200–¥1,600', tag: '魚介醬油叉燒拉麵', desc: '香醇不死鹹的醬油高湯搭配全熟叉燒肉，上飛機前吃一碗熱拉麵最舒服。', query: 'Setagaya+Ramen+Haneda+Airport' }
+    ];
+
+    let activeFoodDay = 'all';
+
+    function renderFoodFilters() {
+      const bar = document.getElementById('foodFilterBar');
+      const pills = [
+        { val: 'all', label: '🍽️ 全部餐點' },
+        { val: '1', label: 'Day 1 日比谷/銀座' },
+        { val: '2', label: 'Day 2 表參道/六本木' },
+        { val: '3', label: 'Day 3 淺草/上野/丸之內' },
+        { val: '4', label: 'Day 4 富士山' },
+        { val: '5', label: 'Day 5 河口湖/大井町' },
+        { val: '6', label: 'Day 6 惠比壽/東京站' },
+        { val: '7', label: 'Day 7 羽田機場' }
+      ];
+
+      bar.innerHTML = pills.map(p => `
+        <button type="button" data-fday="${p.val}"
+                class="food-pill ehon-pill ${activeFoodDay === p.val ? 'bg-yamabuki' : 'bg-white'} shrink-0 px-3.5 py-1.5 text-xs sm:text-sm font-bold">
+          ${p.label}
+        </button>
+      `).join('');
+
+      bar.querySelectorAll('.food-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeFoodDay = btn.dataset.fday;
+          renderFoodFilters();
+          renderRestaurantGrid();
+        });
+      });
+    }
+
+    function renderRestaurantGrid() {
+      const grid = document.getElementById('restaurantGrid');
+      const filtered = activeFoodDay === 'all'
+        ? restaurants
+        : restaurants.filter(r => String(r.day) === activeFoodDay);
+
+      document.getElementById('foodCountTag').textContent = `顯示 ${filtered.length} 間熟食餐廳`;
+
+      grid.innerHTML = filtered.map(r => `
+        <div class="${r.booked ? 'ehon-card-cream' : 'ehon-card-washi'} p-4 space-y-2.5 flex flex-col justify-between anim-pop-bounce">
+          <div class="space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-1.5">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="ehon-tag ${r.booked ? 'bg-coral' : 'bg-mizuiro'} px-2.5 py-0.5 text-xs font-bold">Day ${r.day}・${r.area}</span>
+                <span class="ehon-tag bg-wakatake px-2.5 py-0.5 text-xs font-bold">✅ 全熟無牛舌內臟</span>
+              </div>
+              <span class="text-xs font-bold">${r.price}</span>
+            </div>
+            <h3 class="text-base sm:text-lg font-bold leading-snug">${r.name}</h3>
+            <div class="text-xs font-bold text-ink/80">🍴 推薦必點：${r.tag}</div>
+            <p class="text-xs sm:text-sm leading-relaxed opacity-90">${r.desc}</p>
+          </div>
+          <div class="pt-1">
+            <a href="https://www.google.com/maps/search/?api=1&query=${r.query}" target="_blank" rel="noopener noreferrer"
+               class="ehon-pill bg-yamabuki inline-block px-3.5 py-1.5 text-xs font-bold">
+              📍 Google 地圖導航
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderFoodFilters();
+    renderRestaurantGrid();
+
+    // =========================================================================
+    // 7. CURRENCY CONVERTER & EXPENSE TRACKER (5 Categories + Delete)
+    // =========================================================================
+    const fxRateInput = document.getElementById('fxRateInput');
+    const jpyConvertInput = document.getElementById('jpyConvertInput');
+    const twdConvertInput = document.getElementById('twdConvertInput');
+
+    const savedFx = localStorage.getItem('ehon_fx_2026');
+    if (savedFx) fxRateInput.value = savedFx;
+
+    function getRate() {
+      const r = parseFloat(fxRateInput.value);
+      return (!isNaN(r) && r > 0) ? r : 0.215;
+    }
+
+    fxRateInput.addEventListener('input', () => {
+      localStorage.setItem('ehon_fx_2026', fxRateInput.value);
+      if (jpyConvertInput.value) {
+        twdConvertInput.value = Math.round(parseFloat(jpyConvertInput.value) * getRate());
+      }
+      renderExpenses();
+    });
+
+    jpyConvertInput.addEventListener('input', () => {
+      const val = parseFloat(jpyConvertInput.value);
+      twdConvertInput.value = isNaN(val) ? '' : Math.round(val * getRate());
+    });
+
+    twdConvertInput.addEventListener('input', () => {
+      const val = parseFloat(twdConvertInput.value);
+      jpyConvertInput.value = isNaN(val) ? '' : Math.round(val / getRate());
+    });
+
+    let expenses = JSON.parse(localStorage.getItem('ehon_expenses_2026') || '[]');
+    const categories = [
+      { key: '美食', icon: '🍱', bg: 'bg-coral' },
+      { key: '交通', icon: '🚃', bg: 'bg-mizuiro' },
+      { key: '伴手禮', icon: '🎁', bg: 'bg-yamabuki' },
+      { key: '門票', icon: '🎟️', bg: 'bg-wakatake' },
+      { key: '其他', icon: '🛍️', bg: 'bg-cream' }
+    ];
+
+    function renderExpenses() {
+      const rate = getRate();
+      const sums = { '美食': 0, '交通': 0, '伴手禮': 0, '門票': 0, '其他': 0 };
+      let totalJpy = 0;
+
+      expenses.forEach(item => {
+        totalJpy += item.jpy;
+        if (sums[item.cat] !== undefined) sums[item.cat] += item.jpy;
+        else sums['其他'] += item.jpy;
+      });
+
+      document.getElementById('categorySummaryGrid').innerHTML = categories.map(c => `
+        <div class="${c.bg} border-[2.5px] border-ink rounded-2xl p-2 text-center">
+          <div class="text-xs font-bold">${c.icon} ${c.key}</div>
+          <div class="text-sm font-bold mt-0.5">¥${sums[c.key].toLocaleString()}</div>
+          <div class="text-[11px] opacity-80">NT$ ${Math.round(sums[c.key] * rate).toLocaleString()}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('totalJpyText').textContent = `¥${totalJpy.toLocaleString()}`;
+      document.getElementById('totalTwdText').textContent = `NT$ ${Math.round(totalJpy * rate).toLocaleString()}`;
+
+      const listUl = document.getElementById('expenseListUl');
+      if (expenses.length === 0) {
+        listUl.innerHTML = `<li class="text-center text-xs sm:text-sm opacity-75 py-3">尚未新增任何記帳項目，在上方輸入品項與日幣金額即可開始記錄！</li>`;
+        return;
+      }
+
+      listUl.innerHTML = expenses.map((item, idx) => `
+        <li class="flex items-center justify-between gap-2 bg-white border-2 border-ink rounded-2xl px-3.5 py-2.5">
+          <div class="space-y-0.5">
+            <div class="text-xs sm:text-sm font-bold">
+              <span class="ehon-tag bg-cream px-2 py-0.5 text-[11px] mr-1">${item.cat}</span>
+              ${item.name}
+            </div>
+            <div class="text-xs opacity-80 font-bold">
+              ¥${item.jpy.toLocaleString()}（約 NT$ ${Math.round(item.jpy * rate).toLocaleString()}）
+            </div>
+          </div>
+          <button type="button" data-exp-del="${idx}" class="ehon-pill bg-coral px-2.5 py-1 text-xs font-bold shrink-0">
+            刪除
+          </button>
+        </li>
+      `).join('');
+
+      listUl.querySelectorAll('button[data-exp-del]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.expDel);
+          expenses.splice(idx, 1);
+          localStorage.setItem('ehon_expenses_2026', JSON.stringify(expenses));
+          renderExpenses();
+        });
+      });
+    }
+
+    document.getElementById('addExpenseForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById('expItemInput');
+      const catSelect = document.getElementById('expCatSelect');
+      const jpyInput = document.getElementById('expJpyInput');
+
+      const name = nameInput.value.trim();
+      const jpy = parseFloat(jpyInput.value);
+      if (!name || isNaN(jpy) || jpy <= 0) return;
+
+      expenses.unshift({ name, cat: catSelect.value, jpy: Math.round(jpy) });
+      localStorage.setItem('ehon_expenses_2026', JSON.stringify(expenses));
+      nameInput.value = '';
+      jpyInput.value = '';
+      renderExpenses();
+    });
+
+    document.getElementById('clearExpensesBtn').addEventListener('click', () => {
+      if (expenses.length === 0) return;
+      if (confirm('確定要清空全部記帳紀錄嗎？')) {
+        expenses = [];
+        localStorage.setItem('ehon_expenses_2026', JSON.stringify(expenses));
+        renderExpenses();
+      }
+    });
+
+    renderExpenses();
+
+    // =========================================================================
+    // 8. 12 MUST-BUY SOUVENIRS CHECKLIST (with localStorage)
+    // =========================================================================
+    const souvenirItems = [
+      { id: 'sv1', name: 'NewYork Perfect Cheese 起司奶油脆餅', spot: '東京車站南通路（建議下午早點去買）', price: '約 ¥1,296 / 8入' },
+      { id: 'sv2', name: 'PRESS BUTTER SAND 焦糖奶油夾心餅', spot: '東京車站丸之內南口 / 大丸東京店', price: '約 ¥1,242 / 5入' },
+      { id: 'sv3', name: 'Sugar Butter Sand Tree 砂糖奶油樹', spot: '東京車站一番街 / 羽田機場免稅店', price: '約 ¥1,274 / 14入' },
+      { id: 'sv4', name: 'Tokyo Banana 東京芭娜娜（經典／海獺款）', spot: '東京車站一番街 / 羽田機場', price: '約 ¥1,198 / 8入' },
+      { id: 'sv5', name: 'AUDREY 草莓花束脆餅（グレイシア）', spot: '東京車站 Gransta B1（人氣排隊名店）', price: '約 ¥1,296 / 8入' },
+      { id: 'sv6', name: 'N.Y.C.SAND 焦糖巧克力夾心餅乾', spot: '大丸東京店 1F / 羽田機場', price: '約 ¥1,512 / 8入' },
+      { id: 'sv7', name: 'YOKU MOKU 雪茄蛋捲（秋冬限定鐵盒）', spot: '大丸東京店 / 銀座三越 / 羽田機場', price: '約 ¥1,944 / 20入' },
+      { id: 'sv8', name: '木村家 櫻花紅豆麵包（酒種あんぱん）', spot: '銀座總本店 / 大丸東京店 B1', price: '約 ¥230 / 個' },
+      { id: 'sv9', name: 'FUJIYAMA COOKIE 富士山造型手工餅乾', spot: '河口湖畔本店（Day 5 環湖順買）', price: '約 ¥1,600 / 10入' },
+      { id: 'sv10', name: '富士山羊羹（春吉富士 6入禮盒）', spot: '河口湖站伴手禮店 / 富士山站', price: '約 ¥1,620 / 6入' },
+      { id: 'sv11', name: '茅乃舍 招牌高湯包（野菜／柴魚高湯）', spot: '東京車站 Gransta / 銀座 Six', price: '約 ¥2,268 / 30袋' },
+      { id: 'sv12', name: '福砂屋 長崎蜂蜜蛋糕（雙目糖底超香）', spot: '大丸東京店 B1 / 羽田機場免稅店', price: '約 ¥1,458 / 1條' }
+    ];
+
+    let souvenirChecked = JSON.parse(localStorage.getItem('ehon_souvenirs_2026') || '{}');
+
+    function renderSouvenirs() {
+      const ul = document.getElementById('souvenirListUl');
+      let doneCount = 0;
+
+      ul.innerHTML = souvenirItems.map(item => {
+        const isDone = !!souvenirChecked[item.id];
+        if (isDone) doneCount++;
+        return `
+          <li class="bg-washi border-[2.5px] border-ink rounded-2xl p-3 ${isDone ? 'opacity-65' : ''}">
+            <label class="flex items-start gap-2.5 cursor-pointer">
+              <input type="checkbox" data-sv="${item.id}" ${isDone ? 'checked' : ''}
+                     class="w-5 h-5 mt-0.5 accent-[#3E3A39] shrink-0 cursor-pointer" />
+              <div class="space-y-0.5">
+                <div class="text-xs sm:text-sm font-bold ${isDone ? 'line-through' : ''}">${item.name}</div>
+                <div class="text-[11px] opacity-80">📍 ${item.spot}｜💰 ${item.price}</div>
+              </div>
+            </label>
+          </li>
+        `;
+      }).join('');
+
+      document.getElementById('souvenirProgressBadge').textContent = `${doneCount} / ${souvenirItems.length} 已買`;
+
+      ul.querySelectorAll('input[data-sv]').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          souvenirChecked[e.target.dataset.sv] = e.target.checked;
+          localStorage.setItem('ehon_souvenirs_2026', JSON.stringify(souvenirChecked));
+          renderSouvenirs();
+        });
+      });
+    }
+
+    renderSouvenirs();
+  </script>
+</body>
+</html>
